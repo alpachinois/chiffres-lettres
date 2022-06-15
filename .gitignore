@@ -1,0 +1,22 @@
+﻿################################################################################
+# Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/ChiffresLettres/.idea/.idea.ChiffresLettres/.idea
+/ChiffresLettres/.vs/ChiffresLettres
+/ChiffresLettres/ChiffresLettres.Api/bin/Debug/net5.0
+/ChiffresLettres/ChiffresLettres.Api/obj
+/ChiffresLettres/ChiffresLettres.Application/bin/Debug/net5.0
+/ChiffresLettres/ChiffresLettres.Application/obj
+/ChiffresLettres/ChiffresLettres.Application.Tests/bin/Debug/net5.0
+/ChiffresLettres/ChiffresLettres.Application.Tests/obj
+/ChiffresLettres/ChiffresLettres.Domain/bin/Debug/net5.0
+/ChiffresLettres/ChiffresLettres.Domain/obj
+/ChiffresLettres/ChiffresLettres.Domain.Tests/bin/Debug/net5.0
+/ChiffresLettres/ChiffresLettres.Domain.Tests/obj
+/ChiffresLettres/ChiffresLettres.Infra/obj
+/ChiffresLettres/ChiffresLettres.Infra.Tests/obj
+/ChiffresLettres/ChiffresLettres.sln.DotSettings.user
+/ChiffresLettres/ChiffresLettres.Infra/bin/Debug/net5.0
+/ChiffresLettres/ChiffresLettres.Infra.Tests/bin/Debug/net5.0
