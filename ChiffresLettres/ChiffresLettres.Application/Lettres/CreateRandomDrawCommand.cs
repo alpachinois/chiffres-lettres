@@ -2,5 +2,5 @@
 
 namespace ChiffresLettres.Application.Lettres
 {
-    public record CreateRandomDrawCommand : IRequest<char[]>;
+    public record CreateRandomDrawCommand(int VowelsNumber) : IRequest<char[]>;
 }

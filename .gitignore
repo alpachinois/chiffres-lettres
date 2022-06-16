@@ -20,3 +20,5 @@
 /ChiffresLettres/ChiffresLettres.sln.DotSettings.user
 /ChiffresLettres/ChiffresLettres.Infra/bin/Debug/net5.0
 /ChiffresLettres/ChiffresLettres.Infra.Tests/bin/Debug/net5.0
+/ChiffresLettres/ChiffresLettres.Domain.Tests/bin/Release/net5.0
+/ChiffresLettres/ChiffresLettres.Application.Tests/bin/Release/net5.0

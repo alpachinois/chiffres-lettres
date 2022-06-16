@@ -1,3 +1,4 @@
+using System.Linq;
 using ChiffresLettres.Domain.Lettres;
 using Xunit;
 using FluentAssertions;
@@ -13,10 +14,26 @@ namespace ChiffresLettres.Domain.Tests
         }
         
         [Fact]
-        public void Search_Longest_Word_Test()
+        public void Find_Longest_Word_Test()
         {
-            var tree = new NAirTree();
-            tree.Current.Should().NotBeNull();
+            var randomCharacters = "ABCDEFGHIJ";
+
+            var service = new WordsService();
+
+            var sut = service.FindWords(randomCharacters).Any(x => x == "FICHAGE");
+            sut.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Check_Existing_Word_Test()
+        {
+            var service = new WordsService();
+
+            var sut = service.WordExist("ABCDEFGHIJ");
+            sut.Should().BeFalse();
+
+            sut = service.WordExist("FICHAGE");
+            sut.Should().BeTrue();
         }
     }
 }
