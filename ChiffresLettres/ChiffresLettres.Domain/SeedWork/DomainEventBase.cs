@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChiffresLettres.Domain.SeedWork
 {
-    internal class DomainEventBase
+    public abstract class DomainEventBase : IDomainEvent
     {
+        public DateTime TimeStampUtc { get; private set; } = DateTime.UtcNow;
     }
 }

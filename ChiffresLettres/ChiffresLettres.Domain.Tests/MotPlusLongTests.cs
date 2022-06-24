@@ -1,4 +1,4 @@
-using System.Linq;
+using System;
 using ChiffresLettres.Domain.Lettres;
 using Xunit;
 using FluentAssertions;
@@ -7,10 +7,12 @@ namespace ChiffresLettres.Domain.Tests
 {
     public class MotPlusLongTests
     {
+        private static readonly WordsService Service = new();
+        
         [Fact]
         public void Dictionary_Not_Empty()
         {
-            AvailableWords.Words.Should().NotBeEmpty();
+            AvailableWords.AllPossibleWords.Count.Should().BeGreaterThan(0);
         }
         
         [Fact]
@@ -18,22 +20,30 @@ namespace ChiffresLettres.Domain.Tests
         {
             var randomCharacters = "ABCDEFGHIJ";
 
-            var service = new WordsService();
-
-            var sut = service.FindWords(randomCharacters).Any(x => x == "FICHAGE");
-            sut.Should().BeTrue();
+            var sut = Service.FindWords(randomCharacters);
+            sut.Should().Contain("FICHAGE");
+            sut.Should().Contain("DEFICHA");
+            sut.Should().HaveCount(2);
         }
-
+        
         [Fact]
-        public void Check_Existing_Word_Test()
+        public void Find_Longest_Word_With_Repeated_Char_Test()
         {
-            var service = new WordsService();
+            var randomCharacters = "NAANZZZZZZ";
 
-            var sut = service.WordExist("ABCDEFGHIJ");
-            sut.Should().BeFalse();
+            var sut = Service.FindWords(randomCharacters);
+            sut.Should().Contain("NANA");
+            sut.Should().HaveCount(1);
+        }
+        
+        [Fact]
+        public void Given_IAmPlayer_When_IChooseMoreThan10Vowels_Then_ExceptionRaise()
+        {
+            var vowelsNumber = 11;
+            Action act = () => Service.CreateRandomDraw(vowelsNumber);
 
-            sut = service.WordExist("FICHAGE");
-            sut.Should().BeTrue();
+            act.Should().Throw<NumberVowelsMustBeLessThanTenException>()
+                .WithMessage("Max number allowed : 10");
         }
     }
 }

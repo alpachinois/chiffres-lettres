@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChiffresLettres.Domain.SeedWork
 {
-    internal class DomainExceptionBase
+    public abstract class DomainExceptionBase : Exception
     {
+        protected DomainExceptionBase(string message) : base(message) { }
+
+        protected DomainExceptionBase(string message, Exception innerException) : base(message, innerException) { }
     }
 }

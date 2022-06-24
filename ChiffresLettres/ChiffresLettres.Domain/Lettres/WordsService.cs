@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
 namespace ChiffresLettres.Domain.Lettres
 {
-    public class WordsService : IWordsService
+    public record WordsService : IWordsService
     {
         private static readonly Random Random = new();
         private const string ConsonantPool = "BCDFGHJKLMNPQRSTVWXZ";
@@ -12,28 +13,37 @@ namespace ChiffresLettres.Domain.Lettres
 
         public ImmutableArray<string> FindWords(string randomCharacters)
         {
-            for (var i = 0; i <= 9; i++)
+            var words = new List<string>();
+
+            var combinaisons = randomCharacters
+                .GetCombinations()
+                .OrderByDescending(x => x.Length);
+            
+            foreach (var keyToTest in combinaisons)
             {
-                var possibleWords = AvailableWords.Words.Where(x => x.Length == randomCharacters.Length - i);
-
-                var allWords = possibleWords.Where(word => 
-                    randomCharacters.Intersect(word.ToCharArray()).Count() == word.ToCharArray().Length);
-
-                var enumerable = allWords as string[] ?? allWords.ToArray();
-                if (enumerable.Length > 0)
-                    return enumerable.ToImmutableArray();
-                
+                var results = AvailableWords.AllPossibleWords[keyToTest];
+                if (!string.IsNullOrEmpty(results))
+                {
+                    if (keyToTest.Length < words.FirstOrDefault()?.Length)
+                        break;
+                    
+                    var values = results.Split(',');
+                    words.AddRange(values);
+                }
             }
 
-            return ImmutableArray<string>.Empty;
+            return words.ToImmutableArray();
         }
-
+        
         public char[] CreateRandomDraw(int vowelNumber)
         {
+            if (vowelNumber > 10)
+                throw new NumberVowelsMustBeLessThanTenException("Max number allowed : 10");
+            
             var consonants = Enumerable.Range(0, 10 - vowelNumber)
                 .Select(x => ConsonantPool[Random.Next(0, ConsonantPool.Length)]).ToArray();
 
-            var vowels = Enumerable.Range(0, 10 - vowelNumber)
+            var vowels = Enumerable.Range(0, vowelNumber)
                 .Select(x => VowelPool[Random.Next(0, VowelPool.Length)]).ToArray();
 
             var result = new char[10];
@@ -43,6 +53,6 @@ namespace ChiffresLettres.Domain.Lettres
             return result;
         }
 
-        public bool WordExist(string word) => AvailableWords.Words.Contains(word);
+        public bool IsVowel(char c) => VowelPool.Contains(c);
     }
 }

@@ -34,5 +34,22 @@ namespace ChiffresLettres.Application.Tests
             }
         }
         
+        [Fact]
+        public async Task Given_IAmPlayer_When_IWantAnNumberOfVowels_Then_OnlyReturnExactNumberOfVowels()
+        {
+            var vowelsNumber = 3;
+            var command = new CreateRandomDrawCommand(vowelsNumber);
+            var commandHandler = new CreateRandomDrawCommandHandler(_wordsService);
+
+            var sut = await commandHandler.Handle(command, CancellationToken.None);
+            int result = 0;
+            foreach (var c in sut)
+            {
+                if (_wordsService.IsVowel(c))
+                    result++;
+            }
+
+            result.Should().Be(vowelsNumber);
+        }
     }
 }
