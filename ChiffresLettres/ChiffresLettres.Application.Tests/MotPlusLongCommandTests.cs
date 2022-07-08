@@ -38,6 +38,7 @@ namespace ChiffresLettres.Application.Tests
         public async Task Given_IAmPlayer_When_IWantAnNumberOfVowels_Then_OnlyReturnExactNumberOfVowels()
         {
             var vowelsNumber = 3;
+            var vowelPool = "AEIOUY";
             var command = new CreateRandomDrawCommand(vowelsNumber);
             var commandHandler = new CreateRandomDrawCommandHandler(_wordsService);
 
@@ -45,7 +46,7 @@ namespace ChiffresLettres.Application.Tests
             int result = 0;
             foreach (var c in sut)
             {
-                if (_wordsService.IsVowel(c))
+                if (vowelPool.Contains(c))
                     result++;
             }
 

@@ -14,5 +14,10 @@ namespace ChiffresLettres.Domain.Chiffres
             result = r.Next(1, 999);
             return AvailableNumbers.OrderBy(x => r.Next()).Take(6);
         }
+
+        public bool IsCorrect(int[] numbers, List<Operation> operations, int searchedResult)
+        {
+            return true;
+        }
     }
 }

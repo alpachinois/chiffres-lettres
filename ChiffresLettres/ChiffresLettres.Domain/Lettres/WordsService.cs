@@ -52,7 +52,5 @@ namespace ChiffresLettres.Domain.Lettres
             
             return result;
         }
-
-        public bool IsVowel(char c) => VowelPool.Contains(c);
     }
 }

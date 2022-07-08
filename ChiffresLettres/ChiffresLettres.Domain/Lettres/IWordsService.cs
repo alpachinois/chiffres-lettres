@@ -6,6 +6,5 @@ namespace ChiffresLettres.Domain.Lettres
     {
         ImmutableArray<string> FindWords(string randomCharacters);
         char[] CreateRandomDraw(int vowelNumber);
-        bool IsVowel(char c);
     }
 }
